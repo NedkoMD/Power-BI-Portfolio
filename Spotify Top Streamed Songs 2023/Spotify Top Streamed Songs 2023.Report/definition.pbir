@@ -1,9 +1,0 @@
-{
-  "version": "1.0",
-  "datasetReference": {
-    "byPath": {
-      "path": "../Spotify Top Streamed Songs 2023.Dataset"
-    },
-    "byConnection": null
-  }
-}
