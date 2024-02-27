@@ -1,0 +1,922 @@
+{
+  "compatibilityLevel": 1550,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"carbon_footprint_by_product\",\"greenhouse_gas_emissions\",\"normalizing_factors\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.126.927.0 (24.02)"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "en-US",
+    "cultures": [
+      {
+        "name": "en-US",
+        "linguisticMetadata": {
+          "content": {
+            "DynamicImprovement": "HighConfidence",
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "relationships": [
+      {
+        "name": "72175a8e-187a-4907-958d-9ceee49c1bdf",
+        "fromColumn": "Fiscal Year",
+        "fromTable": "greenhouse_gas_emissions",
+        "toColumn": "Fiscal Year",
+        "toTable": "normalizing_factors"
+      },
+      {
+        "name": "c923624f-a2fb-4dc6-8c5c-74b9c4515b83",
+        "fromColumn": "Release Year",
+        "fromTable": "carbon_footprint_by_product",
+        "toColumn": "Fiscal Year",
+        "toTable": "normalizing_factors"
+      },
+      {
+        "name": "997d7a91-8107-4fd0-a0cf-e7094af28351",
+        "fromColumn": "Fiscal Year",
+        "fromTable": "normalizing_factors",
+        "joinOnDateBehavior": "datePartOnly",
+        "toColumn": "Date",
+        "toTable": "LocalDateTable_2f5fbac7-229a-4204-a615-49f8da80cd76"
+      }
+    ],
+    "sourceQueryCulture": "bg-BG",
+    "tables": [
+      {
+        "name": "carbon_footprint_by_product",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Release Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "11ca2960-16a2-4ef4-83a1-71461bb9f13e",
+            "sourceColumn": "Release Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Product",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d247d52c-0cfd-4b8c-af86-9c15a36e934d",
+            "sourceColumn": "Product",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Baseline Storage",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e20a2ad1-d378-479a-82c9-9e88d6351b3c",
+            "sourceColumn": "Baseline Storage",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Carbon Footprint",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "260abbea-11a5-4391-9a05-58904a864d4e",
+            "sourceColumn": "Carbon Footprint",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "3de9afcd-5d7c-4440-ae7c-95939f21e888",
+        "partitions": [
+          {
+            "name": "carbon_footprint_by_product",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Apple+Emissions\\apple_emissions\\carbon_footprint_by_product.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Release Year\", Int64.Type}, {\"Product\", type text}, {\"Baseline Storage\", Int64.Type}, {\"Carbon Footprint\", Int64.Type}}),",
+                "    #\"Duplicated Column\" = Table.DuplicateColumn(#\"Changed Type\", \"Release Year\", \"Release Year - Copy\"),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Duplicated Column\",{{\"Release Year - Copy\", type date}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Release Year - Copy\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DateTableTemplate_b45d6ae0-d652-4847-b4e4-87e0321530ec",
+        "annotations": [
+          {
+            "name": "__PBI_TemplateDateTable",
+            "value": "true"
+          },
+          {
+            "name": "DefaultItem",
+            "value": "DateHierarchy"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "4075d885-80c1-40f1-ae33-5a28b6c415e2",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "6a6839d9-4a6f-405d-af59-5168d2123457",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "c0802000-eccc-4c68-ad06-8005151936c8",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Month",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "ab814fc9-e3e6-4bb9-bf5b-2762eb571a3e",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "2cf206f6-66ed-421d-94a0-726583003d0d",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "3513f545-2e75-49d3-8821-d0849aa2c693",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Day",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "0cdca277-8d54-46d2-ac19-b9eb2cc45d84",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Date Hierarchy",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Year",
+                "column": "Year",
+                "lineageTag": "366f41cb-736b-4cc7-af70-97121b205dff",
+                "ordinal": 0
+              },
+              {
+                "name": "Quarter",
+                "column": "Quarter",
+                "lineageTag": "7c22ae06-7553-4b40-af9d-7e2267905a55",
+                "ordinal": 1
+              },
+              {
+                "name": "Month",
+                "column": "Month",
+                "lineageTag": "ca9da114-fdc7-4980-83c7-3d9996ff6764",
+                "ordinal": 2
+              },
+              {
+                "name": "Day",
+                "column": "Day",
+                "lineageTag": "233bd77b-ffad-4d7e-b9cb-a5b5aee3d498",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "5b44bdb0-8006-4248-8671-ed27143c696a"
+          }
+        ],
+        "isHidden": true,
+        "isPrivate": true,
+        "lineageTag": "4c874a66-b22c-426f-9986-613812df600f",
+        "partitions": [
+          {
+            "name": "DateTableTemplate_b45d6ae0-d652-4847-b4e4-87e0321530ec",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "greenhouse_gas_emissions",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Fiscal Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "fb0184ea-308e-4cf8-9b39-da8832fb434f",
+            "sourceColumn": "Fiscal Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "22616b2a-e9a3-4d4b-ad6c-acb5f407d0dd",
+            "sourceColumn": "Category",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "99a3ec93-8418-4d13-bdaa-c4ea1df7151f",
+            "sourceColumn": "Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Scope",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d3a4b173-590d-419b-8d34-b1aba56add19",
+            "sourceColumn": "Scope",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Description",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "dc14b656-3b85-4e83-85e1-0dcd91772ac4",
+            "sourceColumn": "Description",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Emissions",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e9692f19-62df-4657-ba7e-7eacc3033c97",
+            "sourceColumn": "Emissions",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Fiscal Year Extended",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "0f90ce4f-624c-49d9-9198-efc6439df3b9",
+            "sourceColumn": "Fiscal Year Extended",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "e2fd32f4-69c8-4b16-9744-e0439963873b",
+        "partitions": [
+          {
+            "name": "greenhouse_gas_emissions",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Apple+Emissions\\apple_emissions\\greenhouse_gas_emissions.csv\"),[Delimiter=\",\", Columns=6, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Fiscal Year\", type date}, {\"Category\", type text}, {\"Type\", type text}, {\"Scope\", type text}, {\"Description\", type text}, {\"Emissions\", Int64.Type}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type\", \"Fiscal Year Extended\", each Date.Year([Fiscal Year]))",
+                "in",
+                "    #\"Added Custom\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "normalizing_factors",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Fiscal Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "6d9aa97a-af99-4000-83e5-fad1dedb68e1",
+            "sourceColumn": "Fiscal Year",
+            "summarizeBy": "none",
+            "variations": [
+              {
+                "name": "Variation",
+                "defaultHierarchy": {
+                  "hierarchy": "Date Hierarchy",
+                  "table": "LocalDateTable_2f5fbac7-229a-4204-a615-49f8da80cd76"
+                },
+                "isDefault": true,
+                "relationship": "997d7a91-8107-4fd0-a0cf-e7094af28351"
+              }
+            ]
+          },
+          {
+            "name": "Employees",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e82dc346-a60c-4191-8c30-4b57cd998889",
+            "sourceColumn": "Employees",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Revenue",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"bg-BG\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "#,0.###############\\ \"лв.\";-#,0.###############\\ \"лв.\";#,0.###############\\ \"лв.\"",
+            "lineageTag": "30ca12b2-b66e-45ee-9b12-5c2643893821",
+            "sourceColumn": "Revenue",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Market Capitalization",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"bg-BG\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "#,0.###############\\ \"лв.\";-#,0.###############\\ \"лв.\";#,0.###############\\ \"лв.\"",
+            "lineageTag": "a7c088b7-d5a8-41d0-9543-bb18b5eea61e",
+            "sourceColumn": "Market Capitalization",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Fiscal Year Extended",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "23147b5c-5245-4b8f-b5c2-0d6550c04b79",
+            "sourceColumn": "Fiscal Year Extended",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "4cc3c5ce-72e6-46bf-b9c2-9ce7b5739d4f",
+        "partitions": [
+          {
+            "name": "normalizing_factors",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Apple+Emissions\\apple_emissions\\normalizing_factors.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Employees\", Int64.Type}, {\"Market Capitalization\", Currency.Type}, {\"Revenue\", Currency.Type}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type\", \"Market Capitalization in billions\", each [Market Capitalization] * 1000000000),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Market Capitalization in billions\", Currency.Type}}),",
+                "    #\"Added Custom1\" = Table.AddColumn(#\"Changed Type1\", \"Revenue in millions\", each [Revenue] * 1000000),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Added Custom1\",{{\"Revenue in millions\", Currency.Type}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Changed Type2\",{\"Fiscal Year\", \"Employees\", \"Revenue\", \"Revenue in millions\", \"Market Capitalization\", \"Market Capitalization in billions\"}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Reordered Columns\",{\"Revenue\", \"Market Capitalization\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"Revenue in millions\", \"Revenue\"}, {\"Market Capitalization in billions\", \"Market Capitalization\"}}),",
+                "    #\"Changed Type3\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"Fiscal Year\", type date}}),",
+                "    #\"Added Custom2\" = Table.AddColumn(#\"Changed Type3\", \"Fiscal Year Extended\", each Date.Year([Fiscal Year]))",
+                "in",
+                "    #\"Added Custom2\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "all_measures",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "4dae0222484f48ea9dafb425ed70c3a3"
+          },
+          {
+            "name": "436ba87b-9c83-4389-a31b-ebd06a36be98",
+            "value": "{\"Expression\":\"\"}"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "b03001f1-4d3e-4c0a-b8cd-5fae2aecf939",
+            "sourceColumn": "[Column]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "8f0e2488-2d17-4505-8ee1-1656f7c2b0b7",
+        "measures": [
+          {
+            "name": "Revenue Change %",
+            "expression": [
+              "",
+              "DIVIDE(",
+              "    LASTNONBLANK(normalizing_factors[Revenue], 1) - FIRSTNONBLANK(normalizing_factors[Revenue], 1),",
+              "    FIRSTNONBLANK(normalizing_factors[Revenue], 1)",
+              ")"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "c1b7da60-3b6f-45d5-861a-9a204306cac7"
+          },
+          {
+            "name": "Market Cap Change %",
+            "expression": [
+              "",
+              "DIVIDE(",
+              "    LASTNONBLANK(normalizing_factors[Market Capitalization], 1) - FIRSTNONBLANK(normalizing_factors[Market Capitalization], 1),",
+              "    FIRSTNONBLANK(normalizing_factors[Market Capitalization], 1)",
+              ")"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "a90018fa-e398-4b4e-8b1f-cb92bcb10cfb"
+          },
+          {
+            "name": "Emissions Change %",
+            "expression": [
+              "",
+              "DIVIDE(",
+              "    LASTNONBLANK(greenhouse_gas_emissions[Emissions], 1) - FIRSTNONBLANK(greenhouse_gas_emissions[Emissions], 1),",
+              "    FIRSTNONBLANK(greenhouse_gas_emissions[Emissions], 1)",
+              ") / 100"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "15f0dbf4-8df0-455e-b420-d1a5e4baebe3"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "all_measures",
+            "mode": "import",
+            "source": {
+              "expression": "Row(\"Column\", BLANK())",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "LocalDateTable_2f5fbac7-229a-4204-a615-49f8da80cd76",
+        "annotations": [
+          {
+            "name": "__PBI_LocalDateTable",
+            "value": "true"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "c3a8ffc5-ba24-489d-b431-499a5e47787d",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "c4d2955a-7c35-417b-8c07-6661abf13a3a",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "113c2062-2b19-4a82-8844-0e00eb682a15",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Month",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "11065ff5-fea2-4929-b2b0-f2d4da8c263c",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "1397ed0a-a796-4600-b419-caeff251cdf9",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "7baddc6e-b7e3-4565-9abc-6a6b7f9a18b5",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Day",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "6d4c0946-5dbc-4d18-bffe-23285cb4ae58",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Date Hierarchy",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Year",
+                "column": "Year",
+                "lineageTag": "b4ec1e99-447e-464e-9ead-64a9e1c0cef2",
+                "ordinal": 0
+              },
+              {
+                "name": "Quarter",
+                "column": "Quarter",
+                "lineageTag": "113d3006-30a8-44d5-a9ee-c9bd79655bb9",
+                "ordinal": 1
+              },
+              {
+                "name": "Month",
+                "column": "Month",
+                "lineageTag": "c0202664-7958-45bf-b7fc-47a916466ea4",
+                "ordinal": 2
+              },
+              {
+                "name": "Day",
+                "column": "Day",
+                "lineageTag": "49b58d10-989e-4b02-8a1e-494ee6b1b229",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "bb15f5cd-cf50-4bda-8075-d1a1d59dbd35"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "344e2f06-c25b-4f9b-8a75-e2cfc5345385",
+        "partitions": [
+          {
+            "name": "LocalDateTable_2f5fbac7-229a-4204-a615-49f8da80cd76",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(Year(MIN('normalizing_factors'[Fiscal Year])), 1, 1), Date(Year(MAX('normalizing_factors'[Fiscal Year])), 12, 31))",
+              "type": "calculated"
+            }
+          }
+        ],
+        "showAsVariationsOnly": true
+      }
+    ]
+  }
+}
