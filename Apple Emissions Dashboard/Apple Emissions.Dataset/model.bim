@@ -561,11 +561,11 @@
               },
               {
                 "name": "PBI_FormatHint",
-                "value": "{\"currencyCulture\":\"bg-BG\"}"
+                "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
             "dataType": "decimal",
-            "formatString": "#,0.###############\\ \"лв.\";-#,0.###############\\ \"лв.\";#,0.###############\\ \"лв.\"",
+            "formatString": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
             "lineageTag": "30ca12b2-b66e-45ee-9b12-5c2643893821",
             "sourceColumn": "Revenue",
             "summarizeBy": "sum"
@@ -579,11 +579,11 @@
               },
               {
                 "name": "PBI_FormatHint",
-                "value": "{\"currencyCulture\":\"bg-BG\"}"
+                "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
             "dataType": "decimal",
-            "formatString": "#,0.###############\\ \"лв.\";-#,0.###############\\ \"лв.\";#,0.###############\\ \"лв.\"",
+            "formatString": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
             "lineageTag": "a7c088b7-d5a8-41d0-9543-bb18b5eea61e",
             "sourceColumn": "Market Capitalization",
             "summarizeBy": "sum"
