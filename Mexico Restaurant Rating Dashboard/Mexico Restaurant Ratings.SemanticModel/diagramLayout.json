@@ -1,0 +1,84 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 895,
+            "y": 211
+          },
+          "nodeIndex": "fact_ratings",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 453,
+            "y": 158
+          },
+          "nodeIndex": "dim_consumers",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 77,
+            "y": 243
+          },
+          "nodeIndex": "dim_consumer_preferences",
+          "nodeLineageTag": "55856521-700f-4632-8e69-24f39e72588b",
+          "size": {
+            "height": 128,
+            "width": 268
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 895,
+            "y": 539
+          },
+          "nodeIndex": "dim_restaurants",
+          "size": {
+            "height": 441,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1318,
+            "y": 697
+          },
+          "nodeIndex": "dim_restaurant_cuisines",
+          "nodeLineageTag": "fcfa9edd-8d85-427e-a90a-ade92dd8e592",
+          "size": {
+            "height": 128,
+            "width": 251
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
