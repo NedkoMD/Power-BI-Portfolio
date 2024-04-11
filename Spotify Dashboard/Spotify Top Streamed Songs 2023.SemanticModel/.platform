@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Spotify Top Streamed Songs 2023"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "212d3170-8d77-4d80-82df-591a9bcf3cb3"
+  }
+}
