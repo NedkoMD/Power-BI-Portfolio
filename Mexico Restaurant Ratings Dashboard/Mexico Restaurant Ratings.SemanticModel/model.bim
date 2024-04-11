@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"dim_consumer_preferences\",\"dim_consumers\",\"fact_ratings\",\"dim_restaurant_cuisines\",\"dim_restaurants\"]"
+        "value": "[\"dim_consumer_preferences\",\"dim_consumers\",\"fact_ratings\",\"dim_restaurant_cuisines\",\"dim_restaurants\",\"metrics\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.127.1327.0 (24.03)"
+        "value": "2.128.751.0 (24.04)"
       },
       {
         "name": "PBI_ProTooling",
@@ -83,11 +83,6 @@
             "value": "Table"
           }
         ],
-        "changedProperties": [
-          {
-            "property": "Name"
-          }
-        ],
         "columns": [
           {
             "name": "Consumer_ID",
@@ -124,7 +119,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Restaurant_Ratings\\consumer_preferences.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\consumer_preferences.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}, {\"Column2\", type text}}),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true]),",
                 "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"Preferred_Cuisine\", type text}})",
@@ -159,7 +154,6 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
             "lineageTag": "8517236f-611f-483b-8ca9-22b27c592fef",
@@ -182,7 +176,6 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "d0f75fd2-b890-44c0-9188-b0dbd4f1b15c",
             "summarizeBy": "none",
@@ -203,7 +196,6 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "5d28dd17-c3d5-4a98-8909-63503bec8150",
             "summarizeBy": "none",
@@ -245,7 +237,6 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([MonthNo] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "056a975f-f6df-4642-9000-2fba522d74c8",
             "summarizeBy": "none",
@@ -287,7 +278,6 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "56cbb68f-b2f0-4738-84f0-8e2f51ed0997",
             "summarizeBy": "none",
@@ -585,7 +575,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Restaurant_Ratings\\consumers.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\consumers.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Smoker\", type text}, {\"Drink_Level\", type text}, {\"Transportation_Method\", type text}, {\"Marital_Status\", type text}, {\"Children\", type text}, {\"Age\", Int64.Type}, {\"Occupation\", type text}, {\"Budget\", type text}}),",
                 "    #\"Replaced Value\" = Table.ReplaceValue(#\"Changed Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
@@ -618,11 +608,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          }
-        ],
-        "changedProperties": [
-          {
-            "property": "Name"
           }
         ],
         "columns": [
@@ -697,19 +682,6 @@
           }
         ],
         "lineageTag": "ff763fc1-7426-4291-af91-709ed0bda5f0",
-        "measures": [
-          {
-            "name": "Average_Rating",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ],
-            "expression": "(AVERAGE(fact_ratings[Overall_Rating]) + AVERAGE(fact_ratings[Food_Rating]) + AVERAGE(fact_ratings[Service_Rating])) / 3",
-            "lineageTag": "daf5d1d4-8bfb-4a81-a851-e4f534e2db30"
-          }
-        ],
         "partitions": [
           {
             "name": "fact_ratings",
@@ -717,7 +689,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Restaurant_Ratings\\ratings.csv\"),[Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\ratings.csv\"),[Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"Restaurant_ID\", Int64.Type}, {\"Overall_Rating\", Int64.Type}, {\"Food_Rating\", Int64.Type}, {\"Service_Rating\", Int64.Type}})",
                 "in",
@@ -738,11 +710,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          }
-        ],
-        "changedProperties": [
-          {
-            "property": "Name"
           }
         ],
         "columns": [
@@ -782,7 +749,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Restaurant_Ratings\\restaurant_cuisines.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\restaurant_cuisines.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Cuisine\", type text}})",
                 "in",
@@ -1020,7 +987,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Restaurant_Ratings\\restaurants.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\restaurants.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Name\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Zip_Code\", Int64.Type}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Alcohol_Service\", type text}, {\"Smoking_Allowed\", type text}, {\"Price\", type text}, {\"Franchise\", type text}, {\"Area\", type text}, {\"Parking\", type text}}),",
                 "    #\"Replaced Value\" = Table.ReplaceValue(#\"Changed Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
@@ -1032,6 +999,51 @@
                 "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Replaced Value2\",{\"Restaurant_ID\", \"Name\", \"City\", \"State\", \"Country\", \"Full Location\", \"Zip_Code\", \"Latitude\", \"Longitude\", \"Alcohol_Service\", \"Smoking_Allowed\", \"Price\", \"Franchise\", \"Area\", \"Parking\"})",
                 "in",
                 "    #\"Reordered Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "metrics",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "changedProperties": [
+          {
+            "property": "Name"
+          }
+        ],
+        "lineageTag": "575b3884-12da-44c6-a101-6457f52593de",
+        "measures": [
+          {
+            "name": "Average_Ratings",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "(AVERAGE(fact_ratings[Overall_Rating]) + AVERAGE(fact_ratings[Food_Rating]) + AVERAGE(fact_ratings[Service_Rating])) / 3",
+            "lineageTag": "757dc36c-218d-46a5-a9f9-d4e14de06779"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "metrics",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
               ],
               "type": "m"
             }

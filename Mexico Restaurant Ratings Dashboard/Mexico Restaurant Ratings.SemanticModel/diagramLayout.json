@@ -5,13 +5,13 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 254
       },
       "nodes": [
         {
           "location": {
             "x": 895,
-            "y": 211
+            "y": 586.25
           },
           "nodeIndex": "fact_ratings",
           "size": {
@@ -23,7 +23,7 @@
         {
           "location": {
             "x": 453,
-            "y": 158
+            "y": 533.25
           },
           "nodeIndex": "dim_consumers",
           "size": {
@@ -35,7 +35,7 @@
         {
           "location": {
             "x": 77,
-            "y": 243
+            "y": 618.25
           },
           "nodeIndex": "dim_consumer_preferences",
           "nodeLineageTag": "55856521-700f-4632-8e69-24f39e72588b",
@@ -48,7 +48,7 @@
         {
           "location": {
             "x": 895,
-            "y": 539
+            "y": 914.25
           },
           "nodeIndex": "dim_restaurants",
           "size": {
@@ -60,7 +60,7 @@
         {
           "location": {
             "x": 1318,
-            "y": 697
+            "y": 1072.25
           },
           "nodeIndex": "dim_restaurant_cuisines",
           "nodeLineageTag": "fcfa9edd-8d85-427e-a90a-ade92dd8e592",
@@ -69,6 +69,18 @@
             "width": 251
           },
           "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1399,
+            "y": 503.75
+          },
+          "nodeIndex": "metrics",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
