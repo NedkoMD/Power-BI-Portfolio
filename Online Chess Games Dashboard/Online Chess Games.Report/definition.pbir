@@ -1,8 +1,8 @@
 {
-  "version": "1.0",
+  "version": "4.0",
   "datasetReference": {
     "byPath": {
-      "path": "../Online Chess Games.Dataset"
+      "path": "../Online Chess Games.SemanticModel"
     },
     "byConnection": null
   }
