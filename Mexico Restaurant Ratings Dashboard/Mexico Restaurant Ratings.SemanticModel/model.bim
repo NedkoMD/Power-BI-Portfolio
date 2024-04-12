@@ -119,12 +119,11 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\consumer_preferences.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\consumer_preferences.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}, {\"Column2\", type text}}),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true]),",
-                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"Preferred_Cuisine\", type text}})",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true])",
                 "in",
-                "    #\"Changed Type1\""
+                "    #\"Promoted Headers\""
               ],
               "type": "m"
             }
@@ -575,21 +574,21 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\consumers.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\consumers.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Smoker\", type text}, {\"Drink_Level\", type text}, {\"Transportation_Method\", type text}, {\"Marital_Status\", type text}, {\"Children\", type text}, {\"Age\", Int64.Type}, {\"Occupation\", type text}, {\"Budget\", type text}}),",
-                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Changed Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
-                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Replaced Value\",{{\"Latitude\", type number}}),",
-                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Changed Type1\",\".\",\",\",Replacer.ReplaceText,{\"Longitude\"}),",
-                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Replaced Value1\",{{\"Longitude\", type number}}),",
-                "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type2\", \"Age Group\", each if [Age] >= 18 and [Age] <= 24 then \"18-24\"",
+                "    #\"Replaced Latitude delimiter\" = Table.ReplaceValue(#\"Changed Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
+                "    #\"Changed Type Latitude\" = Table.TransformColumnTypes(#\"Replaced Latitude delimiter\",{{\"Latitude\", type number}}),",
+                "    #\"Replaced Longitude delimiter\" = Table.ReplaceValue(#\"Changed Type Latitude\",\".\",\",\",Replacer.ReplaceText,{\"Longitude\"}),",
+                "    #\"Changed Type Longitude\" = Table.TransformColumnTypes(#\"Replaced Longitude delimiter\",{{\"Longitude\", type number}}),",
+                "    #\"Added Column Age Group\" = Table.AddColumn(#\"Changed Type Longitude\", \"Age Group\", each if [Age] >= 18 and [Age] <= 24 then \"18-24\"",
                 "else if [Age] >= 25 and [Age] <= 35 then \"25-35\"",
                 "else if [Age] >= 35 and [Age] <= 54 then \"35-54\"",
                 "else \"55+\"),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added Custom\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"}),",
-                "    #\"Inserted Merged Column\" = Table.AddColumn(#\"Reordered Columns\", \"Full Location\", each Text.Combine({[City], [State], [Country]}, \",\"), type text),",
-                "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Inserted Merged Column\",\",\",\", \",Replacer.ReplaceText,{\"Full Location\"}),",
-                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Replaced Value2\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Full Location\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"})",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added Column Age Group\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"}),",
+                "    #\"Inserted Merged Column Full Location\" = Table.AddColumn(#\"Reordered Columns\", \"Full Location\", each Text.Combine({[City], [State], [Country]}, \",\"), type text),",
+                "    #\"Replaced Full Location delimiter\" = Table.ReplaceValue(#\"Inserted Merged Column Full Location\",\",\",\", \",Replacer.ReplaceText,{\"Full Location\"}),",
+                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Replaced Full Location delimiter\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Full Location\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"})",
                 "in",
                 "    #\"Reordered Columns1\""
               ],
@@ -689,11 +688,11 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\ratings.csv\"),[Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\ratings.csv\"),[Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"Restaurant_ID\", Int64.Type}, {\"Overall_Rating\", Int64.Type}, {\"Food_Rating\", Int64.Type}, {\"Service_Rating\", Int64.Type}})",
+                "    #\"Changed Rating Columns Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"Restaurant_ID\", Int64.Type}, {\"Overall_Rating\", Int64.Type}, {\"Food_Rating\", Int64.Type}, {\"Service_Rating\", Int64.Type}})",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Changed Rating Columns Type\""
               ],
               "type": "m"
             }
@@ -749,11 +748,11 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\restaurant_cuisines.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\restaurant_cuisines.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Cuisine\", type text}})",
+                "    #\"Changed Restaurant_ID Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Cuisine\", type text}})",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Changed Restaurant_ID Type\""
               ],
               "type": "m"
             }
@@ -987,16 +986,16 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Rating Dashboard\\Mexico Restaurant Ratings csv\\restaurants.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\restaurants.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Name\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Zip_Code\", Int64.Type}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Alcohol_Service\", type text}, {\"Smoking_Allowed\", type text}, {\"Price\", type text}, {\"Franchise\", type text}, {\"Area\", type text}, {\"Parking\", type text}}),",
-                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Changed Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
-                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Replaced Value\",{{\"Latitude\", type number}}),",
-                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Changed Type1\",\".\",\",\",Replacer.ReplaceText,{\"Longitude\"}),",
-                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Replaced Value1\",{{\"Longitude\", type number}}),",
-                "    #\"Inserted Merged Column\" = Table.AddColumn(#\"Changed Type2\", \"Full Location\", each Text.Combine({[City], [State], [Country]}, \",\"), type text),",
-                "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Inserted Merged Column\",\",\",\", \",Replacer.ReplaceText,{\"Full Location\"}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Replaced Value2\",{\"Restaurant_ID\", \"Name\", \"City\", \"State\", \"Country\", \"Full Location\", \"Zip_Code\", \"Latitude\", \"Longitude\", \"Alcohol_Service\", \"Smoking_Allowed\", \"Price\", \"Franchise\", \"Area\", \"Parking\"})",
+                "    #\"Changed Restaurant_ID Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Name\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Zip_Code\", Int64.Type}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Alcohol_Service\", type text}, {\"Smoking_Allowed\", type text}, {\"Price\", type text}, {\"Franchise\", type text}, {\"Area\", type text}, {\"Parking\", type text}}),",
+                "    #\"Replaced Latitude delimiter\" = Table.ReplaceValue(#\"Changed Restaurant_ID Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
+                "    #\"Changed Latitude Type\" = Table.TransformColumnTypes(#\"Replaced Latitude delimiter\",{{\"Latitude\", type number}}),",
+                "    #\"Replaced Longitude delimiter\" = Table.ReplaceValue(#\"Changed Latitude Type\",\".\",\",\",Replacer.ReplaceText,{\"Longitude\"}),",
+                "    #\"Changed Longitude Type\" = Table.TransformColumnTypes(#\"Replaced Longitude delimiter\",{{\"Longitude\", type number}}),",
+                "    #\"Inserted Merged Column Full Location\" = Table.AddColumn(#\"Changed Longitude Type\", \"Full Location\", each Text.Combine({[City], [State], [Country]}, \",\"), type text),",
+                "    #\"Replaced Full Location delimiter\" = Table.ReplaceValue(#\"Inserted Merged Column Full Location\",\",\",\", \",Replacer.ReplaceText,{\"Full Location\"}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Replaced Full Location delimiter\",{\"Restaurant_ID\", \"Name\", \"City\", \"State\", \"Country\", \"Full Location\", \"Zip_Code\", \"Latitude\", \"Longitude\", \"Alcohol_Service\", \"Smoking_Allowed\", \"Price\", \"Franchise\", \"Area\", \"Parking\"})",
                 "in",
                 "    #\"Reordered Columns\""
               ],
