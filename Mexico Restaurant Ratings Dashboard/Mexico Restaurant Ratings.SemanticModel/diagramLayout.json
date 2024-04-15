@@ -10,8 +10,8 @@
       "nodes": [
         {
           "location": {
-            "x": 892,
-            "y": 164.25
+            "x": 589,
+            "y": 154.25
           },
           "nodeIndex": "fact_ratings",
           "nodeLineageTag": "ff763fc1-7426-4291-af91-709ed0bda5f0",
@@ -19,12 +19,12 @@
             "height": 216,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 440,
-            "y": 17.25
+            "x": 1001,
+            "y": 11.25
           },
           "nodeIndex": "dim_consumers",
           "nodeLineageTag": "bf89ce0b-e99d-4443-a89d-84e8f83126a2",
@@ -32,38 +32,38 @@
             "height": 503,
             "width": 234
           },
-          "zIndex": 3
-        },
-        {
-          "location": {
-            "x": 23,
-            "y": 194.25
-          },
-          "nodeIndex": "dim_consumer_preferences",
-          "nodeLineageTag": "55856521-700f-4632-8e69-24f39e72588b",
-          "size": {
-            "height": 145,
-            "width": 268
-          },
-          "zIndex": 5
-        },
-        {
-          "location": {
-            "x": 889,
-            "y": 556.25
-          },
-          "nodeIndex": "dim_restaurants",
-          "nodeLineageTag": "edee11a2-3ff7-4bdd-be21-010d352e869b",
-          "size": {
-            "height": 479,
-            "width": 234
-          },
           "zIndex": 2
         },
         {
           "location": {
-            "x": 1391,
-            "y": 725.25
+            "x": 1411,
+            "y": 189.25
+          },
+          "nodeIndex": "dim_consumer_preferences",
+          "nodeLineageTag": "55856521-700f-4632-8e69-24f39e72588b",
+          "size": {
+            "height": 149,
+            "width": 268
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 587,
+            "y": 549.25
+          },
+          "nodeIndex": "dim_restaurants",
+          "nodeLineageTag": "edee11a2-3ff7-4bdd-be21-010d352e869b",
+          "size": {
+            "height": 440,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 145,
+            "y": 694.25
           },
           "nodeIndex": "dim_restaurant_cuisines",
           "nodeLineageTag": "fcfa9edd-8d85-427e-a90a-ade92dd8e592",
@@ -71,12 +71,12 @@
             "height": 145,
             "width": 251
           },
-          "zIndex": 6
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 1393,
-            "y": 60.75
+            "x": 48,
+            "y": 84.75
           },
           "nodeIndex": "metrics",
           "nodeLineageTag": "575b3884-12da-44c6-a101-6457f52593de",
@@ -84,7 +84,7 @@
             "height": 145,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 6
         }
       ],
       "name": "All tables",

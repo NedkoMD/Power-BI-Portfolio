@@ -588,9 +588,15 @@
                 "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added Column Age Group\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"}),",
                 "    #\"Inserted Merged Column Full Location\" = Table.AddColumn(#\"Reordered Columns\", \"Full Location\", each Text.Combine({[City], [State], [Country]}, \",\"), type text),",
                 "    #\"Replaced Full Location delimiter\" = Table.ReplaceValue(#\"Inserted Merged Column Full Location\",\",\",\", \",Replacer.ReplaceText,{\"Full Location\"}),",
-                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Replaced Full Location delimiter\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Full Location\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"})",
+                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Replaced Full Location delimiter\",{\"Consumer_ID\", \"City\", \"State\", \"Country\", \"Full Location\", \"Latitude\", \"Longitude\", \"Smoker\", \"Drink_Level\", \"Transportation_Method\", \"Marital_Status\", \"Children\", \"Age\", \"Age Group\", \"Occupation\", \"Budget\"}),",
+                "    #\"Replaced Value empty values in Budget\" = Table.ReplaceValue(#\"Reordered Columns1\",\"\",\"Not Specified\",Replacer.ReplaceValue,{\"Budget\"}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Replaced Value empty values in Budget\",\"\",\"Not Specified\",Replacer.ReplaceValue,{\"Transportation_Method\"}),",
+                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"\",\"Not Specified\",Replacer.ReplaceValue,{\"Marital_Status\"}),",
+                "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"\",\"Not Specified\",Replacer.ReplaceValue,{\"Children\"}),",
+                "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"\",\"Not Specified\",Replacer.ReplaceValue,{\"Occupation\"}),",
+                "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"\",\"Not Specified\",Replacer.ReplaceValue,{\"Smoker\"})",
                 "in",
-                "    #\"Reordered Columns1\""
+                "    #\"Replaced Value4\""
               ],
               "type": "m"
             }
