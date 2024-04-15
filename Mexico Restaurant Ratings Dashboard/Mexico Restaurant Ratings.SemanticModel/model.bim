@@ -839,20 +839,6 @@
             "summarizeBy": "none"
           },
           {
-            "name": "Zip_Code",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "676455bf-7e5c-47b6-a8de-bf4435c815b3",
-            "sourceColumn": "Zip_Code",
-            "summarizeBy": "count"
-          },
-          {
             "name": "Latitude",
             "annotations": [
               {
@@ -995,9 +981,10 @@
                 "    #\"Changed Longitude Type\" = Table.TransformColumnTypes(#\"Replaced Longitude delimiter\",{{\"Longitude\", type number}}),",
                 "    #\"Inserted Merged Column Full Location\" = Table.AddColumn(#\"Changed Longitude Type\", \"Full Location\", each Text.Combine({[City], [State], [Country]}, \",\"), type text),",
                 "    #\"Replaced Full Location delimiter\" = Table.ReplaceValue(#\"Inserted Merged Column Full Location\",\",\",\", \",Replacer.ReplaceText,{\"Full Location\"}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Replaced Full Location delimiter\",{\"Restaurant_ID\", \"Name\", \"City\", \"State\", \"Country\", \"Full Location\", \"Zip_Code\", \"Latitude\", \"Longitude\", \"Alcohol_Service\", \"Smoking_Allowed\", \"Price\", \"Franchise\", \"Area\", \"Parking\"})",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Replaced Full Location delimiter\",{\"Restaurant_ID\", \"Name\", \"City\", \"State\", \"Country\", \"Full Location\", \"Zip_Code\", \"Latitude\", \"Longitude\", \"Alcohol_Service\", \"Smoking_Allowed\", \"Price\", \"Franchise\", \"Area\", \"Parking\"}),",
+                "    #\"Removed Column Zip Code\" = Table.RemoveColumns(#\"Reordered Columns\",{\"Zip_Code\"})",
                 "in",
-                "    #\"Reordered Columns\""
+                "    #\"Removed Column Zip Code\""
               ],
               "type": "m"
             }
