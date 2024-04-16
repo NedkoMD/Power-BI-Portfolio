@@ -1022,6 +1022,188 @@
             ],
             "expression": "(AVERAGE(fact_ratings[Overall_Rating]) + AVERAGE(fact_ratings[Food_Rating]) + AVERAGE(fact_ratings[Service_Rating])) / 3",
             "lineageTag": "757dc36c-218d-46a5-a9f9-d4e14de06779"
+          },
+          {
+            "name": "Top Rated Restaurant",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "RETURN",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              ""
+            ],
+            "lineageTag": "0de7f654-83a8-4396-91af-412048446764"
+          },
+          {
+            "name": "Top Rated Restaurant Parking",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[Parking], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "4ddb2858-6c22-4684-83f5-d5b09770bea1"
+          },
+          {
+            "name": "Max_Rating",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        FIRSTNONBLANK(dim_restaurants[Name], 1),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN [Top Rated Restaurant]"
+            ],
+            "lineageTag": "1da52cbc-1e25-4977-881b-c1704b510100"
+          },
+          {
+            "name": "Top Rated Restaurant Area",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[Area], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )",
+              ""
+            ],
+            "lineageTag": "19de65ef-89a5-4c67-ba67-939cc5335f2d"
+          },
+          {
+            "name": "Top Rated Restaurant Smoking",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[Smoking_Allowed], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "25d82c21-ae92-4c4a-8538-643e5944150c"
+          },
+          {
+            "name": "Top Rated Restaurant Price",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[Price], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "5ea8e0b2-0964-4679-afdb-a715afbef5a7"
+          },
+          {
+            "name": "Top Rated Restaurant City",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[City], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "d4d80cd9-1ec0-49a6-8e4b-2f6c1164088c"
+          },
+          {
+            "name": "Top Rated Restaurant Country",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[Country], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "b8715294-66f6-4692-b2e9-585a8c9fd992"
+          },
+          {
+            "name": "Top Rated Restaurant Alcohol",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[Alcohol_Service], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "6086d2a3-f408-4cd2-ab12-e43bc74f2e16"
           }
         ],
         "partitions": [
