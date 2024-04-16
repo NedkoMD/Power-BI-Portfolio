@@ -1204,6 +1204,27 @@
               "    )"
             ],
             "lineageTag": "6086d2a3-f408-4cd2-ab12-e43bc74f2e16"
+          },
+          {
+            "name": "Top Rated Restaurant State",
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    LOOKUPVALUE(",
+              "        dim_restaurants[State], ",
+              "        dim_restaurants[Name], TopRestaurant",
+              "    )"
+            ],
+            "lineageTag": "a93f5cab-c76d-405f-bcf9-7ea5710eb9f5"
           }
         ],
         "partitions": [
