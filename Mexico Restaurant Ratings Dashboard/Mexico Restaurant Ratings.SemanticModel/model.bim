@@ -1024,7 +1024,7 @@
             "lineageTag": "757dc36c-218d-46a5-a9f9-d4e14de06779"
           },
           {
-            "name": "Top Rated Restaurant",
+            "name": "Top Rated Restaurant Name",
             "expression": [
               "",
               "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
@@ -1074,7 +1074,7 @@
               "            [Average_Ratings] = MaxRating",
               "        )",
               "    )",
-              "RETURN [Top Rated Restaurant]"
+              "RETURN [Top Rated Restaurant Name]"
             ],
             "lineageTag": "1da52cbc-1e25-4977-881b-c1704b510100"
           },
@@ -1225,6 +1225,30 @@
               "    )"
             ],
             "lineageTag": "a93f5cab-c76d-405f-bcf9-7ea5710eb9f5"
+          },
+          {
+            "name": "Top Rated Restaurant Average Rating",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MaxRating = MAXX(ALLSELECTED(dim_restaurants), [Average_Ratings])",
+              "VAR TopRestaurant = ",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(dim_restaurants[Name]),",
+              "        FILTER(",
+              "            ALLSELECTED(dim_restaurants),",
+              "            [Average_Ratings] = MaxRating",
+              "        )",
+              "    )",
+              "RETURN",
+              "    MaxRating"
+            ],
+            "lineageTag": "094be0c1-34fc-4373-a6b3-b0fc7db5b201"
           }
         ],
         "partitions": [
