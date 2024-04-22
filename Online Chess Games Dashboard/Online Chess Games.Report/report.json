@@ -20,25 +20,11 @@
         "name": "SharedResources",
         "type": 2
       }
-    },
-    {
-      "resourcePackage": {
-        "disabled": false,
-        "items": [
-          {
-            "name": "Bc9826990290979318.png",
-            "path": "Bc9826990290979318.png",
-            "type": 100
-          }
-        ],
-        "name": "RegisteredResources",
-        "type": 1
-      }
     }
   ],
   "sections": [
     {
-      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Bc.png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bc9826990290979318.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"''\"}}},\"url\":{\"expr\":{\"Literal\":{\"Value\":\"''\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}},\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#A4A9CE'\"}}}}}}}]}}",
       "displayName": "Page 1",
       "displayOption": 3,
       "filters": "[]",

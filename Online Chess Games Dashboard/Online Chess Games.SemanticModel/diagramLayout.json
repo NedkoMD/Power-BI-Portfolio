@@ -16,7 +16,7 @@
           "nodeIndex": "Chess Games",
           "nodeLineageTag": "c0f7182b-3703-481d-8150-bb3056b50dda",
           "size": {
-            "height": 300,
+            "height": 558,
             "width": 234
           },
           "zIndex": 1
@@ -35,13 +35,13 @@
         },
         {
           "location": {
-            "x": 915,
-            "y": 103
+            "x": 947,
+            "y": 54
           },
           "nodeIndex": "Metrics",
           "nodeLineageTag": "262ba6f4-29aa-4753-9882-a4a0769dfb74",
           "size": {
-            "height": 104,
+            "height": 176,
             "width": 234
           },
           "zIndex": 3
