@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"carbon_footprint_by_product\",\"greenhouse_gas_emissions\",\"normalizing_factors\",\"metrics\"]"
+        "value": "[\"fact_carbon_footprint\",\"dim_greenhouse_gas_emissions\",\"dim_normalizing_factors\",\"metrics\",\"dim_product\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.128.751.0 (24.04)"
+        "value": "2.128.952.0 (24.04)"
       },
       {
         "name": "PBI_ProTooling",
@@ -39,32 +39,40 @@
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
     "relationships": [
       {
-        "name": "72175a8e-187a-4907-958d-9ceee49c1bdf",
-        "fromColumn": "Fiscal Year",
-        "fromTable": "greenhouse_gas_emissions",
-        "toColumn": "Fiscal Year",
-        "toTable": "normalizing_factors"
-      },
-      {
         "name": "c923624f-a2fb-4dc6-8c5c-74b9c4515b83",
         "fromColumn": "Release Year",
-        "fromTable": "carbon_footprint_by_product",
+        "fromTable": "fact_carbon_footprint",
         "toColumn": "Fiscal Year",
-        "toTable": "normalizing_factors"
+        "toTable": "dim_normalizing_factors"
       },
       {
         "name": "997d7a91-8107-4fd0-a0cf-e7094af28351",
         "fromColumn": "Fiscal Year",
-        "fromTable": "normalizing_factors",
+        "fromTable": "dim_normalizing_factors",
         "joinOnDateBehavior": "datePartOnly",
         "toColumn": "Date",
         "toTable": "LocalDateTable_2f5fbac7-229a-4204-a615-49f8da80cd76"
+      },
+      {
+        "name": "726a41e8-1eef-4180-994b-3978125756e4",
+        "fromColumn": "Fiscal Year",
+        "fromTable": "dim_greenhouse_gas_emissions",
+        "toColumn": "Fiscal Year",
+        "toTable": "dim_normalizing_factors"
+      },
+      {
+        "name": "551d63be-20d8-50e6-dfd1-2e8b86b9c413",
+        "crossFilteringBehavior": "bothDirections",
+        "fromColumn": "Product",
+        "fromTable": "fact_carbon_footprint",
+        "toColumn": "Product",
+        "toTable": "dim_product"
       }
     ],
     "sourceQueryCulture": "bg-BG",
     "tables": [
       {
-        "name": "carbon_footprint_by_product",
+        "name": "fact_carbon_footprint",
         "annotations": [
           {
             "name": "PBI_NavigationStepName",
@@ -135,19 +143,24 @@
         "lineageTag": "3de9afcd-5d7c-4440-ae7c-95939f21e888",
         "partitions": [
           {
-            "name": "carbon_footprint_by_product",
+            "name": "fact_carbon_footprint",
             "mode": "import",
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Apple+Emissions\\apple_emissions\\carbon_footprint_by_product.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Apple Emissions Dashboard\\Apple Emissions.csv\\carbon_footprint_by_product.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Release Year\", Int64.Type}, {\"Product\", type text}, {\"Baseline Storage\", Int64.Type}, {\"Carbon Footprint\", Int64.Type}}),",
                 "    #\"Duplicated Column\" = Table.DuplicateColumn(#\"Changed Type\", \"Release Year\", \"Release Year - Copy\"),",
                 "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Duplicated Column\",{{\"Release Year - Copy\", type date}}),",
-                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Release Year - Copy\"})",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Release Year - Copy\"}),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Removed Columns\", \"Index\", 0, 1, Int64.Type),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added Index\",{\"Index\", \"Release Year\", \"Product\", \"Baseline Storage\", \"Carbon Footprint\"}),",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Reordered Columns\",{\"Index\"}),",
+                "    #\"Duplicated Column1\" = Table.DuplicateColumn(#\"Removed Columns1\", \"Baseline Storage\", \"Baseline Storage - Copy\"),",
+                "    #\"Removed Columns2\" = Table.RemoveColumns(#\"Duplicated Column1\",{\"Baseline Storage - Copy\"})",
                 "in",
-                "    #\"Removed Columns\""
+                "    #\"Removed Columns2\""
               ],
               "type": "m"
             }
@@ -360,7 +373,7 @@
         ]
       },
       {
-        "name": "greenhouse_gas_emissions",
+        "name": "dim_greenhouse_gas_emissions",
         "annotations": [
           {
             "name": "PBI_NavigationStepName",
@@ -473,12 +486,12 @@
         "lineageTag": "e2fd32f4-69c8-4b16-9744-e0439963873b",
         "partitions": [
           {
-            "name": "greenhouse_gas_emissions",
+            "name": "dim_greenhouse_gas_emissions",
             "mode": "import",
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Apple+Emissions\\apple_emissions\\greenhouse_gas_emissions.csv\"),[Delimiter=\",\", Columns=6, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Apple Emissions Dashboard\\Apple Emissions.csv\\greenhouse_gas_emissions.csv\"),[Delimiter=\",\", Columns=6, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Fiscal Year\", type date}, {\"Category\", type text}, {\"Type\", type text}, {\"Scope\", type text}, {\"Description\", type text}, {\"Emissions\", Int64.Type}}),",
                 "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type\", \"Fiscal Year Extended\", each Date.Year([Fiscal Year]))",
@@ -491,7 +504,7 @@
         ]
       },
       {
-        "name": "normalizing_factors",
+        "name": "dim_normalizing_factors",
         "annotations": [
           {
             "name": "PBI_NavigationStepName",
@@ -599,12 +612,12 @@
         "lineageTag": "4cc3c5ce-72e6-46bf-b9c2-9ce7b5739d4f",
         "partitions": [
           {
-            "name": "normalizing_factors",
+            "name": "dim_normalizing_factors",
             "mode": "import",
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Apple+Emissions\\apple_emissions\\normalizing_factors.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Apple Emissions Dashboard\\Apple Emissions.csv\\normalizing_factors.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Employees\", Int64.Type}, {\"Market Capitalization\", Currency.Type}, {\"Revenue\", Currency.Type}}),",
                 "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type\", \"Market Capitalization in billions\", each [Market Capitalization] * 1000000000),",
@@ -818,7 +831,7 @@
             "name": "LocalDateTable_2f5fbac7-229a-4204-a615-49f8da80cd76",
             "mode": "import",
             "source": {
-              "expression": "Calendar(Date(Year(MIN('normalizing_factors'[Fiscal Year])), 1, 1), Date(Year(MAX('normalizing_factors'[Fiscal Year])), 12, 31))",
+              "expression": "Calendar(Date(Year(MIN('dim_normalizing_factors'[Fiscal Year])), 1, 1), Date(Year(MAX('dim_normalizing_factors'[Fiscal Year])), 12, 31))",
               "type": "calculated"
             }
           }
@@ -845,8 +858,8 @@
             "expression": [
               "",
               "DIVIDE(",
-              "    LASTNONBLANK(greenhouse_gas_emissions[Emissions], 1) - FIRSTNONBLANK(greenhouse_gas_emissions[Emissions], 1),",
-              "    FIRSTNONBLANK(greenhouse_gas_emissions[Emissions], 1)",
+              "    LASTNONBLANK(dim_greenhouse_gas_emissions[Emissions], 1) - FIRSTNONBLANK(dim_greenhouse_gas_emissions[Emissions], 1),",
+              "    FIRSTNONBLANK(dim_greenhouse_gas_emissions[Emissions], 1)",
               ") / 100"
             ],
             "formatString": "0.00%;-0.00%;0.00%",
@@ -857,8 +870,8 @@
             "expression": [
               "",
               "DIVIDE(",
-              "    LASTNONBLANK(normalizing_factors[Market Capitalization], 1) - FIRSTNONBLANK(normalizing_factors[Market Capitalization], 1),",
-              "    FIRSTNONBLANK(normalizing_factors[Market Capitalization], 1)",
+              "    LASTNONBLANK(dim_normalizing_factors[Market Capitalization], 1) - FIRSTNONBLANK(dim_normalizing_factors[Market Capitalization], 1),",
+              "    FIRSTNONBLANK(dim_normalizing_factors[Market Capitalization], 1)",
               ")"
             ],
             "formatString": "0.00%;-0.00%;0.00%",
@@ -869,8 +882,8 @@
             "expression": [
               "",
               "DIVIDE(",
-              "    LASTNONBLANK(normalizing_factors[Revenue], 1) - FIRSTNONBLANK(normalizing_factors[Revenue], 1),",
-              "    FIRSTNONBLANK(normalizing_factors[Revenue], 1)",
+              "    LASTNONBLANK(dim_normalizing_factors[Revenue], 1) - FIRSTNONBLANK(dim_normalizing_factors[Revenue], 1),",
+              "    FIRSTNONBLANK(dim_normalizing_factors[Revenue], 1)",
               ")"
             ],
             "formatString": "0.00%;-0.00%;0.00%",
@@ -887,6 +900,67 @@
                 "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
                 "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_product",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Release Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "8601f087-e7de-4550-988d-ace4eb6e4e6e",
+            "sourceColumn": "Release Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Product",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "47f0f2ba-6b37-4fe4-8d9f-d45cf77fb757",
+            "sourceColumn": "Product",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "02d4db94-92d7-4edc-bdc3-9a1343fff858",
+        "partitions": [
+          {
+            "name": "dim_product",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Apple Emissions Dashboard\\Apple Emissions.csv\\carbon_footprint_by_product.csv\"),[Delimiter=\",\", Columns=4, Encoding=1251, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Release Year\", Int64.Type}, {\"Product\", type text}, {\"Baseline Storage\", Int64.Type}, {\"Carbon Footprint\", Int64.Type}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Baseline Storage\", \"Carbon Footprint\"})",
                 "in",
                 "    #\"Removed Columns\""
               ],
