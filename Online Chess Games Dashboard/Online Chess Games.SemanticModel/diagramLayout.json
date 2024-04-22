@@ -11,32 +11,33 @@
         {
           "location": {
             "x": 221,
-            "y": 8
+            "y": 12
           },
           "nodeIndex": "Chess Games",
           "nodeLineageTag": "c0f7182b-3703-481d-8150-bb3056b50dda",
           "size": {
-            "height": 558,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 568,
-            "y": 50
-          },
-          "nodeIndex": "Player Results",
-          "size": {
-            "height": 200,
+            "height": 607,
             "width": 234
           },
           "zIndex": 2
         },
         {
           "location": {
-            "x": 947,
-            "y": 54
+            "x": 662,
+            "y": 201
+          },
+          "nodeIndex": "Player Results",
+          "nodeLineageTag": "7c9ec493-f0eb-4509-b91d-bd6bc17540f3",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1401,
+            "y": 132
           },
           "nodeIndex": "Metrics",
           "nodeLineageTag": "262ba6f4-29aa-4753-9882-a4a0769dfb74",
@@ -44,7 +45,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 1
         }
       ],
       "name": "All tables",
