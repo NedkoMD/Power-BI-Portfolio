@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.128.751.0 (24.04)"
+        "value": "2.128.952.0 (24.04)"
       },
       {
         "name": "PBI_ProTooling",
@@ -866,32 +866,81 @@
         "name": "metrics",
         "annotations": [
           {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
             "name": "PBI_ResultType",
             "value": "Table"
           }
         ],
-        "columns": [
+        "changedProperties": [
           {
-            "name": "Column1",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "70929625-854b-419f-add8-d14f3f9357a0",
-            "sourceColumn": "Column1",
-            "summarizeBy": "none"
+            "property": "Name"
           }
         ],
-        "lineageTag": "cca05b0c-9dab-47e3-9af8-a1cb73f4bf27",
+        "lineageTag": "10f86752-eb53-4883-b58e-51f4775839e0",
         "measures": [
           {
-            "name": "_Track",
-            "expression": "count('spotify-2023'[track_name])",
+            "name": "_Average Stream per years",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    AVERAGE('spotify-2023'[streams]),",
+              "    ALLEXCEPT('spotify-2023', 'spotify-2023'[Date].[Year])",
+              "    )"
+            ],
+            "lineageTag": "2e34a4a6-4ac6-468b-8467-82b2d038a9ca"
+          },
+          {
+            "name": "_Max Streams",
+            "expression": "MAX('spotify-2023'[streams])",
             "formatString": "0",
-            "lineageTag": "927fa271-e4af-45c6-9a03-155b5aab704e"
+            "lineageTag": "cb16a257-ff44-4598-b54a-a742f3c9bcce"
+          },
+          {
+            "name": "_Percent_Val",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "AVERAGE('spotify-2023'[energy_%])"
+            ],
+            "lineageTag": "31e7bec8-ddf8-476f-bc28-52386c5afdeb"
+          },
+          {
+            "name": "_Top Song streams",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    SUM('spotify-2023'[streams]),",
+              "    'spotify-2023'[streams] = MAX('spotify-2023'[streams])",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "6c70f0f7-e475-48f7-a5a3-c5eac4ca84b5"
+          },
+          {
+            "name": "_Top song vs AVG",
+            "expression": [
+              "",
+              "VAR x = [_Top song vs avg val] RETURN",
+              "",
+              "IF (x > 0,",
+              "FORMAT(x, \"#.0%\") & \" \" & UNICHAR ( 9650),",
+              "FORMAT(x, \"#.0%\") & \" \" & UNICHAR ( 9660))"
+            ],
+            "lineageTag": "e070d76a-d225-4252-8ced-9f8a836fcff9"
           },
           {
             "name": "_Top song vs avg val",
@@ -911,65 +960,10 @@
             "lineageTag": "51cac574-57d7-4f28-b8fc-d8369392b593"
           },
           {
-            "name": "_Top song vs AVG",
-            "expression": [
-              "",
-              "VAR x = [_Top song vs avg val] RETURN",
-              "",
-              "IF (x > 0,",
-              "FORMAT(x, \"#.0%\") & \" \" & UNICHAR ( 9650),",
-              "FORMAT(x, \"#.0%\") & \" \" & UNICHAR ( 9660))"
-            ],
-            "lineageTag": "e070d76a-d225-4252-8ced-9f8a836fcff9"
-          },
-          {
-            "name": "_Top Song streams",
-            "expression": [
-              "",
-              "CALCULATE(",
-              "    SUM('spotify-2023'[streams]),",
-              "    'spotify-2023'[streams] = MAX('spotify-2023'[streams])",
-              ")"
-            ],
+            "name": "_Track",
+            "expression": "count('spotify-2023'[track_name])",
             "formatString": "0",
-            "lineageTag": "6c70f0f7-e475-48f7-a5a3-c5eac4ca84b5"
-          },
-          {
-            "name": "_Percent_Val",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ],
-            "expression": [
-              "",
-              "AVERAGE('spotify-2023'[energy_%])"
-            ],
-            "lineageTag": "31e7bec8-ddf8-476f-bc28-52386c5afdeb"
-          },
-          {
-            "name": "_Max Streams",
-            "expression": "MAX('spotify-2023'[streams])",
-            "formatString": "0",
-            "lineageTag": "cb16a257-ff44-4598-b54a-a742f3c9bcce"
-          },
-          {
-            "name": "_Average Stream per years",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ],
-            "expression": [
-              "",
-              "CALCULATE(",
-              "    AVERAGE('spotify-2023'[streams]),",
-              "    ALLEXCEPT('spotify-2023', 'spotify-2023'[Date].[Year])",
-              "    )"
-            ],
-            "lineageTag": "2e34a4a6-4ac6-468b-8467-82b2d038a9ca"
+            "lineageTag": "927fa271-e4af-45c6-9a03-155b5aab704e"
           }
         ],
         "partitions": [
@@ -980,9 +974,10 @@
               "expression": [
                 "let",
                 "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Removed Columns\""
               ],
               "type": "m"
             }

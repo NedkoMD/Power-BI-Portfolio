@@ -19,15 +19,14 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
-            "x": 284,
+            "x": 568,
             "y": 98
           },
           "nodeIndex": "metrics",
-          "nodeLineageTag": "cca05b0c-9dab-47e3-9af8-a1cb73f4bf27",
           "size": {
             "height": 104,
             "width": 234
