@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Data Breaches"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "aecccaf1-1c15-43a0-9567-09df41ab192c"
+  }
+}
