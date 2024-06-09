@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Netflix Users"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f2b9f718-670e-4cfe-842e-0cc01ae61faf"
+  }
+}
