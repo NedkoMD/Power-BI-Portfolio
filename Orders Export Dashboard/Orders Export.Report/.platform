@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Orders Export"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "46dad930-e172-48d6-9308-29768965ebd3"
+  }
+}
