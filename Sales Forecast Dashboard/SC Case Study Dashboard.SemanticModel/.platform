@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SC Case Study Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4a7a5dda-d265-45f6-b3e6-c6986e024421"
+  }
+}

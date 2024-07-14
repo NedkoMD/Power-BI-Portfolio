@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 247.39376528677349,
+            "y": 403.42048789888713
+          },
+          "nodeIndex": "Inventory Levels (week 8 close)",
+          "nodeLineageTag": "03b4d556-db2f-4b62-af4e-fc96aca77ba6",
+          "size": {
+            "height": 398,
+            "width": 296
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 939,
+            "y": 501.55322400276145
+          },
+          "nodeIndex": "Sales Forecast (week 9+)",
+          "nodeLineageTag": "73b4e2fb-3b69-46fc-95ab-6a696f125424",
+          "size": {
+            "height": 205,
+            "width": 285
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 646.60623471322651,
+            "y": 56.140162632962529
+          },
+          "nodeIndex": "Metrics",
+          "nodeLineageTag": "ed2ea557-fcb5-458e-a4ec-1b4b286f7da2",
+          "size": {
+            "height": 215,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
