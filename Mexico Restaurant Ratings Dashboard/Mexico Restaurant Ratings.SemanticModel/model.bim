@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.129.905.0 (24.05)"
+        "value": "2.137.1102.0 (24.10)"
       },
       {
         "name": "PBI_ProTooling",
@@ -119,7 +119,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"E:\\GitHub projects\\Power-BI-Portfolio\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings.Dataset\\consumer_preferences.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\consumer_preferences.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}, {\"Column2\", type text}}),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true])",
                 "in",
@@ -338,6 +338,10 @@
       {
         "name": "dim_consumers",
         "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -570,7 +574,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"E:\\GitHub projects\\Power-BI-Portfolio\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings.Dataset\\consumers.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\consumers.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Smoker\", type text}, {\"Drink_Level\", type text}, {\"Transportation_Method\", type text}, {\"Marital_Status\", type text}, {\"Children\", type text}, {\"Age\", Int64.Type}, {\"Occupation\", type text}, {\"Budget\", type text}}),",
                 "    #\"Replaced Latitude delimiter\" = Table.ReplaceValue(#\"Changed Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
@@ -602,6 +606,10 @@
       {
         "name": "fact_ratings",
         "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -686,7 +694,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"E:\\GitHub projects\\Power-BI-Portfolio\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings.Dataset\\ratings.csv\"),[Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\ratings.csv\"),[Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Rating Columns Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Consumer_ID\", type text}, {\"Restaurant_ID\", Int64.Type}, {\"Overall_Rating\", Int64.Type}, {\"Food_Rating\", Int64.Type}, {\"Service_Rating\", Int64.Type}})",
                 "in",
@@ -700,6 +708,10 @@
       {
         "name": "dim_restaurant_cuisines",
         "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -742,7 +754,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"E:\\GitHub projects\\Power-BI-Portfolio\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings.Dataset\\restaurant_cuisines.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\restaurant_cuisines.csv\"),[Delimiter=\",\", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Restaurant_ID Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Cuisine\", type text}})",
                 "in",
@@ -756,6 +768,10 @@
       {
         "name": "dim_restaurants",
         "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -962,7 +978,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"E:\\GitHub projects\\Power-BI-Portfolio\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings.Dataset\\restaurants.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Nedko\\Desktop\\Work\\Power BI\\Mexico Restaurant Ratings Dashboard\\Mexico Restaurant Ratings csv\\restaurants.csv\"),[Delimiter=\",\", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
                 "    #\"Changed Restaurant_ID Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Restaurant_ID\", Int64.Type}, {\"Name\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Country\", type text}, {\"Zip_Code\", Int64.Type}, {\"Latitude\", type text}, {\"Longitude\", type text}, {\"Alcohol_Service\", type text}, {\"Smoking_Allowed\", type text}, {\"Price\", type text}, {\"Franchise\", type text}, {\"Area\", type text}, {\"Parking\", type text}}),",
                 "    #\"Replaced Latitude delimiter\" = Table.ReplaceValue(#\"Changed Restaurant_ID Type\",\".\",\",\",Replacer.ReplaceText,{\"Latitude\"}),",
