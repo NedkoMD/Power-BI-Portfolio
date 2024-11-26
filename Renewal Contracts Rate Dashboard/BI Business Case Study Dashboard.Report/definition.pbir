@@ -1,9 +1,0 @@
-{
-  "version": "4.0",
-  "datasetReference": {
-    "byPath": {
-      "path": "../BI Business Case Study Dashboard.SemanticModel"
-    },
-    "byConnection": null
-  }
-}
